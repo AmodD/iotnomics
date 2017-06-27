@@ -39,10 +39,10 @@
           </div>
           <div class="column is-6 is-offset-1">
             <h1 class="title is-2">
-              Introducing Crypto
+              Introducing CrypToINR
             </h1>
             <h2 class="subtitle is-4">
-              It's time to say hi to Crpto Currencies.
+              It's time to say hi to Crypto Currencies.
             </h2>
             <br>
             <p class="control has-addons has-text-centered">

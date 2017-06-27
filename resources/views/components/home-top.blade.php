@@ -3,7 +3,7 @@
 <div class="columns container">
 <div class="column is-one-quarter">
 <div class="nav-left nav-menu">
-	<a class="nav-item is-tab" href="/"><span class="icon"><i class="fa fa-home"></i></span>&nbsp; CRYPTO</a>
+	<a class="nav-item is-tab" href="/"><span class="icon"><i class="fa fa-home"></i></span>&nbsp; CRYPTOINR</a>
         @if (Auth::check())
 <!--	<a class="nav-item is-tab" href="#">Create Tournament</a>
 	<a class="nav-item is-tab" href="#">Create Profile</a> -->
