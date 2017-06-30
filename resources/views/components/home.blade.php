@@ -1,13 +1,13 @@
 @php 
 $routeName =  Route::currentRouteName() ;
 $componentName = 'components.'.$routeName ;
-//echo $routeName ;
+echo $routeName ;
 @endphp
 
-@if($routeName == 'dashboard' || $routeName == 'home' || $routeName == '')
+@if($routeName == 'dashboard' || $routeName == 'home' || $routeName == '' )
 	@component('components.dashboard',['data' => $data]) @endcomponent
 @elseif($routeName == 'main')
-	@component('components.home-middle2') @endcomponent
+	@component('components.home-middle') @endcomponent
 @elseif($routeName == 'teamsearch' || $routeName == 'teamstore')
 	@component('components.teams',['data' => $data]) @endcomponent
 @else

@@ -14,7 +14,7 @@ use App\Spread ;
 
 Route::get('/', function () {
     return view('home');
-});
+})->name('main');
 
 Route::get('/test', function() { 
 

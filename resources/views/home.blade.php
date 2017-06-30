@@ -6,18 +6,18 @@
 
 @section('middlecontent')
 
-	@if(Auth::check())
 	@php
 	if(empty($data)) $data = '';
 	@endphp 
-
-<link rel="stylesheet" href="https://dansup.github.io/bulma-templates/css/admin.css">
-<div class="columns">
-		@component('components.menu') @endcomponent 
-		@component('components.home',['data' => $data]) @endcomponent
-</div>
+	
+	@if((!Auth::check()) || (Route::currentRouteName() == 'main') )
+		@component('components.home-middle') @endcomponent
 	@else
-	@component('components.home-middle') @endcomponent
+	<link rel="stylesheet" href="https://dansup.github.io/bulma-templates/css/admin.css">
+		<div class="columns">
+			@component('components.menu') @endcomponent 
+			@component('components.home',['data' => $data]) @endcomponent
+		</div>
 	@endif
 
 @endsection
