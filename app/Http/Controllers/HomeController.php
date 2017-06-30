@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Spread ;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+	$data = Spread::where('exchange_id',1)->orderBy('id','desc')->take(12)->get();
+
+
+	return view('home',compact('data'));
+        //return view('home');
     }
 }

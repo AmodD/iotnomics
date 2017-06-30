@@ -1,6 +1,7 @@
 @php 
 $routeName =  Route::currentRouteName() ;
 $componentName = 'components.'.$routeName ;
+//echo $routeName ;
 @endphp
 
 @if($routeName == 'dashboard' || $routeName == 'home' || $routeName == '')
