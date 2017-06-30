@@ -5,15 +5,21 @@
 @endsection
 
 @section('middlecontent')
+
 	@if(Auth::check())
 	@php
 	if(empty($data)) $data = '';
 	@endphp 
-		@component('components.menu') @endcomponent
+
+<link rel="stylesheet" href="https://dansup.github.io/bulma-templates/css/admin.css">
+<div class="columns">
+		@component('components.menu') @endcomponent 
 		@component('components.home',['data' => $data]) @endcomponent
+</div>
 	@else
 	@component('components.home-middle') @endcomponent
 	@endif
+
 @endsection
 
 

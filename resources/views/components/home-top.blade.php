@@ -15,8 +15,8 @@
 <div class="column is-one-quarter">
 <div class="nav-right nav-menu">
         @if (Auth::guest())
-	<a class="nav-item is-tab" href=""><span class="icon"><i class="fa fa-user-plus"></i></span>&nbsp; Register</a>
-	<a class="nav-item is-tab" href=""><span class="icon"><i class="fa fa-sign-in"></i></span>&nbsp; LogIn</a>
+	<a class="nav-item is-tab" href="{{ route('register') }}"><span class="icon"><i class="fa fa-user-plus"></i></span>&nbsp; Register</a>
+	<a class="nav-item is-tab" href="{{ route('login') }}"><span class="icon"><i class="fa fa-sign-in"></i></span>&nbsp; LogIn</a>
 	@else
 	<a class="nav-item is-tab" href="{{ route('register') }}"><span class="icon"><i class="fa fa-user-circle"></i></span>&nbsp; {{ Auth::user()->name }}</a>
 	<a class="nav-item is-tab" href="{{ route('logout') }}" 

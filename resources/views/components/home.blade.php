@@ -4,7 +4,7 @@ $componentName = 'components.'.$routeName ;
 @endphp
 
 @if($routeName == 'dashboard' || $routeName == 'home' || $routeName == '')
-	@component('components.dashboard') @endcomponent
+	@component('components.dashboard',['data' => $data]) @endcomponent
 @elseif($routeName == 'main')
 	@component('components.home-middle2') @endcomponent
 @elseif($routeName == 'teamsearch' || $routeName == 'teamstore')

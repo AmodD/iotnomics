@@ -1,6 +1,7 @@
 <template>
-	<div>	<p>{{ name }}  <h1><span class="icon is-medium"><i class="fa fa-inr"></i></span>&nbsp;{{ inr }}    
-		</h1>  </p> </div>
+	<div >	<p >{{ name }}  <h1><span class="icon is-medium"><i class="fa fa-inr"></i></span>&nbsp;{{ inr }}    
+		</h1>  </p> 
+	</div>
 </template>
 
 <script>

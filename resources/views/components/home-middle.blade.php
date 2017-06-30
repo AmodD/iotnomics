@@ -1,6 +1,6 @@
-<div id="app" class="columns content" style="margin-bottom:100px">
+<div id="app" class="columnsi content" style="margin-bottom:100px">
 
-<div class="tile is-ancestor">
+<div class="tile is-ancestor ">
   <div class="tile is-parent">
     <article class="tile is-child box">
     <example name="BITCOIN" code="BTC"></example>
