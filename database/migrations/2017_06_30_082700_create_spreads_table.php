@@ -13,7 +13,7 @@ class CreateSpreadsTable extends Migration
      */
     public function up()
     {
-	return ;
+//	return ;
 
         Schema::create('spreads', function (Blueprint $table) {
 		$table->increments('id');
@@ -33,7 +33,7 @@ class CreateSpreadsTable extends Migration
      */
     public function down()
     {
-	    return;
+//	    return;
 
         Schema::dropIfExists('spreads');
     }
