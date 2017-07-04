@@ -40,3 +40,7 @@ Route::get('/charts', function() {
 	return view('home',compact('data'));
 
 })->name('charts');
+
+Route::get('/users', 'UsersController@index')->name('users');
+Route::patch('/users/{user}','UsersController@update');
+Route::delete('/users/{user}','UsersController@destroy');

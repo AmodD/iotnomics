@@ -14,7 +14,7 @@
           <a href="#" class="item"><span class="icon"><i class="fa fa-question"></i></span><span class="name">Support</span></a>
           <div class="title"></div>
           <div class="title">Admin</div>
-          <a href="#" class="item "><span class="icon"><i class="fa fa-user-times"></i></span><span class="name">Users</span></a>
+          <a href="/users" class="item {{{ ((Route::currentRouteName() == 'users') ? 'active' : '')  }}}"><span class="icon"><i class="fa fa-user-times"></i></span><span class="name">Users</span></a>
           <a href="/charts" class="item {{{ ((Route::currentRouteName() == 'charts') ? 'active' : '')  }}}"><span class="icon"><i class="fa fa-line-chart"></i></span><span class="name">Charts</span></a>
         </div>
       </div>
