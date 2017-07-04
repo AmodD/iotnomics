@@ -13,6 +13,8 @@ class CreateSpreadsTable extends Migration
      */
     public function up()
     {
+	return ;
+
         Schema::create('spreads', function (Blueprint $table) {
 		$table->increments('id');
 		$table->unsignedSmallInteger('exchange_id');
@@ -31,6 +33,8 @@ class CreateSpreadsTable extends Migration
      */
     public function down()
     {
+	    return;
+
         Schema::dropIfExists('spreads');
     }
 }

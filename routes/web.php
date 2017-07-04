@@ -27,13 +27,16 @@ Auth::routes();
 Route::get('/home', 'HomeController@index');
 
 Route::get('/dashboard', function () { 
-	//	$data =	Spread::all();
-	//
-	$data = Spread::where('exchange_id',1)->orderBy('id','desc')->take(12)->get();
 
-
-	return view('home',compact('data'));
+	return view('home'); 
 
 })->name('dashboard');
 
 Route::post('/spread','SpreadsController@store');
+Route::get('/charts', function() { 
+	
+	$data = Spread::where('exchange_id',1)->orderBy('id','desc')->take(12)->get();
+
+	return view('home',compact('data'));
+
+})->name('charts');
