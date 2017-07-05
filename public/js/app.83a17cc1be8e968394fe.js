@@ -1704,6 +1704,79 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/Matrix.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	props: ['name', 'code'],
+	data: function data() {
+		return {
+			inr: "",
+			interval: null,
+			price: "",
+			lastvolBTC: "",
+			lastvolINR: "",
+			dayvolBTC: "",
+			dayvolINR: "",
+			dayhigh: "",
+			daylow: "",
+			daychange: ""
+
+		};
+	},
+	methods: {
+		getValues: function getValues() {
+			var _this = this;
+
+			console.log("about to call");
+			axios.get('https://min-api.cryptocompare.com/data/generateAvg', {
+				params: {
+					fsym: this.code,
+					tsym: "INR",
+					markets: this.name
+				}
+			}).then(function (response) {
+				return [_this.price = response.data.DISPLAY.PRICE, _this.lastvolBTC = response.data.DISPLAY.LASTVOLUME, _this.lastvolINR = response.data.DISPLAY.LASTVOLUMETO, _this.dayvolBTC = response.data.DISPLAY.VOLUME24HOUR, _this.dayvolINR = response.data.DISPLAY.VOLUME24HOURTO, _this.dayhigh = response.data.DISPLAY.HIGH24HOUR, _this.daylow = response.data.DISPLAY.LOW24HOUR, _this.daychange = response.data.DISPLAY.CHANGEPCT24HOUR];
+			}).catch(function (error) {
+				console.log(error);
+			});
+		}
+	},
+	mounted: function mounted() {
+		this.getValues();
+
+		//			this.interval = setInterval(function () {
+		//				          this.getValues();
+		//					      }.bind(this), 10000); 
+
+		//this.getINR();
+		console.log('Component mounted.');
+	}
+});
+
+/***/ }),
+
 /***/ "./node_modules/chart.js/src/chart.js":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -30920,6 +30993,26 @@ if (false) {
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-5e7fec84\"}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/Matrix.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "has-text-left"
+  }, [_c('p', {
+    staticClass: "has-text-centered"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.name) + " ")])]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('p', [_c('strong', [_vm._v(" 1 " + _vm._s(_vm.code) + " =  ")]), _vm._v(" : " + _vm._s(_vm.price) + " ")]), _vm._v(" "), _c('p', [_c('strong', [_vm._v(" Last Traded " + _vm._s(_vm.code) + " Amount ")]), _vm._v(" : " + _vm._s(_vm.lastvolBTC) + " ")]), _vm._v(" "), _c('p', [_c('strong', [_vm._v(" Last Traded INR Amount ")]), _vm._v(" : " + _vm._s(_vm.lastvolINR) + " ")]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('p', [_c('strong', [_vm._v(" Last 24 hour volume " + _vm._s(_vm.code) + " ")]), _vm._v(" : " + _vm._s(_vm.dayvolBTC) + " ")]), _vm._v(" "), _c('p', [_c('strong', [_vm._v(" Last 24 hour volume INR ")]), _vm._v(" : " + _vm._s(_vm.dayvolINR) + " ")]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('p', [_c('strong', [_vm._v(" Day High ")]), _vm._v(" : " + _vm._s(_vm.dayhigh) + " ")]), _vm._v(" "), _c('p', [_c('strong', [_vm._v(" Day Low ")]), _vm._v(" : " + _vm._s(_vm.daylow) + " ")]), _vm._v(" "), _c('p', [_c('strong', [_vm._v(" Day Change % ")]), _vm._v(" : " + _vm._s(_vm.daychange) + " ")])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-5e7fec84", module.exports)
+  }
+}
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-d1059e4a\"}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/Graph.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -40708,7 +40801,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Example_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_Example_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Graph_vue__ = __webpack_require__("./resources/assets/js/components/Graph.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Graph_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_Graph_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Matrix_vue__ = __webpack_require__("./resources/assets/js/components/Matrix.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Matrix_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_Matrix_vue__);
 __webpack_require__("./resources/assets/js/bootstrap.js");
+
 
 
 
@@ -40720,7 +40816,7 @@ var app = new Vue({
         dataObj: Object
     },
     props: ['name', 'code', 'labels', 'sell', 'buy'],
-    components: { example: __WEBPACK_IMPORTED_MODULE_0__components_Example_vue___default.a, graph: __WEBPACK_IMPORTED_MODULE_1__components_Graph_vue___default.a }
+    components: { example: __WEBPACK_IMPORTED_MODULE_0__components_Example_vue___default.a, graph: __WEBPACK_IMPORTED_MODULE_1__components_Graph_vue___default.a, matrix: __WEBPACK_IMPORTED_MODULE_2__components_Matrix_vue___default.a }
 });
 
 /***/ }),
@@ -40842,6 +40938,41 @@ if (false) {(function () {
     hotAPI.createRecord("data-v-d1059e4a", Component.options)
   } else {
     hotAPI.reload("data-v-d1059e4a", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Matrix.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")(
+  /* script */
+  __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/Matrix.vue"),
+  /* template */
+  __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-5e7fec84\"}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/Matrix.vue"),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/amodkulkarni/Projects/iotnomics/resources/assets/js/components/Matrix.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Matrix.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-5e7fec84", Component.options)
+  } else {
+    hotAPI.reload("data-v-5e7fec84", Component.options)
   }
 })()}
 

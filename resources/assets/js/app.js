@@ -2,6 +2,7 @@ require('./bootstrap');
 
 import example from './components/Example.vue' ;
 import graph from './components/Graph.vue' ;
+import matrix from './components/Matrix.vue' ;
 
 
 const app = new Vue({
@@ -11,7 +12,7 @@ const app = new Vue({
 		dataObj : Object
     },
     props: ['name','code','labels','sell','buy'],
-    components : { example , graph  }
+    components : { example , graph , matrix  }
 });
 
 
