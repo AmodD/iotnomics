@@ -10,8 +10,8 @@ class CommissionsController extends Controller
     //
    public function index()
    {
-//	   $data = Commission::with()
-	   $data = auth()->user()->account()->first();
+	   $data = Commission::all();
+//	   $data = auth()->user()->account()->first();
 //	   dd($data->coins());
 	   return view('home',compact('data'));
    }
