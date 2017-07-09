@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersTable extends Migration
+class CreateAccountsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,16 +12,16 @@ class CreateUsersTable extends Migration
      * @return void
      */
     public function up()
-    {  
-	    return ;
-        Schema::create('users', function (Blueprint $table) {
+    {
+        Schema::create('accounts', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->rememberToken();
+	    $table->integer('user_id');
+	    $table->decimal('value',12,2)->default(0.00);
+            $table->string('status'); // 
             $table->timestamps();
-        });
+	});
+
+//	DB::update("ALTER TABLE accounts AUTO_INCREMENT = 7500;");
     }
 
     /**
@@ -31,7 +31,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-	    return ; 
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('accounts');
     }
 }

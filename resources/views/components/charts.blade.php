@@ -3,12 +3,12 @@
 <div class="columns" >
 	<div class="column is-half-desktop is-full-mobile">
 		<div class="box">
-			<matrix name='EthexIndia' code='ETH'></matrix>
+			<stats name='EthexIndia' code='ETH'></stats>
 		</div>
 	</div>
 	<div class="column is-half-desktop is-full-mobile">
 		<div class="box">
-			<matrix name='Unocoin' code='BTC'></matrix>
+			<stats name='Unocoin' code='BTC'></stats>
 		</div>
 	</div>
 </div>

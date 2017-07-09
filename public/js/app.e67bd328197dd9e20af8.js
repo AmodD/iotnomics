@@ -1605,6 +1605,205 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/Buy.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	props: ["balance", "data"],
+	data: function data() {
+		return {
+			btc: "",
+			eth: "",
+			xrp: "",
+			xlm: "",
+			walletid: "",
+			quantity: "",
+			amount: "",
+			rate: "",
+			coinid: 0,
+			coinname: "",
+			termsandc: false,
+			commission: 0
+
+		};
+	},
+	computed: {
+		quantityValue: function quantityValue() {
+			return this.rate;
+		}
+	},
+	methods: {
+		onSubmit: function onSubmit() {
+			axios.post('/buy', {
+				coin_id: this.coinid,
+				wallet_id: this.walletid,
+				amount: this.amount,
+				rate: this.rate,
+				quantity: this.quantity
+			}).then(function (response) {
+				console.log(response);
+			}).catch(function (error) {
+				console.log(error);
+			});
+		},
+		quantitycalc: function quantitycalc() {
+			if (this.coinid == 1) this.rate = this.btc;
+			if (this.coinid == 2) this.rate = this.eth;
+			if (this.coinid == 3) this.rate = this.xrp;
+			if (this.coinid == 4) this.rate = this.xlm;
+
+			this.commission = this.amount * 0.01 * 2;
+			this.quantity = ((this.amount - this.commission) / this.rate).toFixed(8);
+		},
+		walletselected: function walletselected(walletid) {
+			this.walletid = walletid;
+			if (this.coinid == 1) {
+				this.rate = this.btc;this.coinname = "BTC";
+			}
+			if (this.coinid == 2) {
+				this.rate = this.eth;this.coinname = "ETH";
+			}
+			if (this.coinid == 3) {
+				this.rate = this.xrp;this.coinname = "XRP";
+			}
+			if (this.coinid == 4) {
+				this.rate = this.xlm;this.coinname = "XLM";
+			}
+
+			this.commission = this.amount * 0.01 * 2;
+			this.quantity = ((this.amount - this.commission) / this.rate).toFixed(8);
+		},
+		getValues: function getValues() {
+			var _this = this;
+
+			console.log("about to call");
+			axios.get('https://min-api.cryptocompare.com/data/pricemulti', {
+				params: {
+					fsyms: "BTC,ETH,XRP,XLM",
+					tsyms: "USD"
+				}
+			}).then(function (response) {
+				return [_this.btc = (response.data.BTC.USD * 65).toFixed(2), _this.eth = (response.data.ETH.USD * 65).toFixed(2), _this.xrp = (response.data.XRP.USD * 65).toFixed(2), _this.xlm = (response.data.XLM.USD * 65).toFixed(2)];
+			}).catch(function (error) {
+				console.log(error);
+			});
+		}
+	},
+
+	mounted: function mounted() {
+		this.getValues();
+
+		this.interval = setInterval(function () {
+			this.getValues();
+		}.bind(this), 30000);
+
+		//this.getINR();
+		console.log(this.data);
+	}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/Errors.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	props: ["errors"],
+	data: function data() {
+		return {
+			flaterrors: [].concat.apply([], Object.values(this.errors))
+		};
+	}
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/Example.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1616,12 +1815,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-	props: ['name', 'code'],
+	props: ['name', 'code', 'showmkt', 'margins'],
 	data: function data() {
 		return {
-			inr: "",
+			mktinr: "",
+			ourinr: "",
 			interval: null
 		};
 	},
@@ -1630,13 +1837,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			var _this = this;
 
 			console.log("about to call");
+
 			axios.get('https://min-api.cryptocompare.com/data/price', {
 				params: {
 					fsym: this.code,
 					tsyms: "INR"
 				}
 			}).then(function (response) {
-				return _this.inr = response.data.INR;
+				return _this.mktinr = response.data.INR.toFixed(2);
+			}).catch(function (error) {
+				console.log(error);
+			});
+
+			axios.get('https://min-api.cryptocompare.com/data/price', {
+				params: {
+					fsym: this.code,
+					tsyms: "USD"
+				}
+			}).then(function (response) {
+				return _this.ourinr = (response.data.USD * 65
+				//	       	+
+				//		(response.data.USD)*(this.margins.usdinr)*(0.01)*(this.margins.profit)
+				//	+
+				//	(response.data.USD)*(this.margins.usdinr)*(0.01)*(this.margins.tax)
+				//     	+
+				//	(response.data.USD)*(this.margins.usdinr)*(0.01)*(this.margins.exchange)
+				//     	+
+				//		(response.data.USD)*(this.margins.usdinr)*(0.01)*(this.margins.fees)
+				).toFixed(2);
 			}).catch(function (error) {
 				console.log(error);
 			});
@@ -1644,6 +1872,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 	mounted: function mounted() {
 		this.getINR();
+
+		this.ourcomm = this.ourinr;
+		//			this.ourcomm = (this.ourinr)*(0.01)*(this.margins.profit) + 
+		//					(this.ourinr)*(0.01)*(this.margins.tax) + 
+		//					(this.ourinr)*(0.01)*(this.margins.exchange) + 
+		//					(this.ourinr)*(0.01)*(this.margins.fees)  ;
 
 		this.interval = setInterval(function () {
 			this.getINR();
@@ -1704,7 +1938,194 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/Matrix.vue":
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/Sell.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	props: ["data"],
+	data: function data() {
+		return {
+			btc: "",
+			eth: "",
+			xrp: "",
+			xlm: "",
+			walletid: "",
+			quantity: "",
+			amount: "",
+			rate: "",
+			coinid: 0,
+			coinname: "",
+			coincode: "",
+			termsandc: false,
+			commission: 0,
+			tmpamnt: "",
+			balance: ""
+
+		};
+	},
+	computed: {
+		quantityValue: function quantityValue() {
+			return this.rate;
+		},
+		quantityof: function quantityof() {
+			return "Quantity of " + this.coinname;
+		}
+	},
+	methods: {
+		onSubmit: function onSubmit() {
+			axios.post('/buy', {
+				coin_id: this.coinid,
+				wallet_id: this.walletid,
+				amount: this.amount,
+				rate: this.rate,
+				quantity: this.quantity
+			}).then(function (response) {
+				console.log(response);
+			}).catch(function (error) {
+				console.log(error);
+			});
+		},
+		amountcalc: function amountcalc() {
+			if (this.coinid == 1) this.rate = this.btc;
+			if (this.coinid == 2) this.rate = this.eth;
+			if (this.coinid == 3) this.rate = this.xrp;
+			if (this.coinid == 4) this.rate = this.xlm;
+
+			this.tmpamnt = (this.quantity * this.rate).toFixed(2);
+
+			this.commission = (this.tmpamnt * 0.01 * 2).toFixed(2);
+			this.amount = (this.tmpamnt - this.commission).toFixed(2);
+		},
+		walletselected: function walletselected(walletid, balance) {
+			this.walletid = walletid;
+			if (this.coinid == 1) {
+				this.rate = this.btc;this.coincode = "BTC";this.coinname = "Bitcoins";
+			}
+			if (this.coinid == 2) {
+				this.rate = this.eth;this.coincode = "ETH";this.coinname = "Ethers";
+			}
+			if (this.coinid == 3) {
+				this.rate = this.xrp;this.coincode = "XRP";this.coinname = "Ripple";
+			}
+			if (this.coinid == 4) {
+				this.rate = this.xlm;this.coincode = "XLM";this.coinname = "Lumens";
+			}
+
+			this.balance = balance;
+
+			this.tmpamnt = this.quantity * this.rate;
+
+			this.commission = (this.tmpamnt * 0.01 * 2).toFixed(2);
+			this.amount = (this.tmpamnt - this.commission).toFixed(2);
+		},
+		getValues: function getValues() {
+			var _this = this;
+
+			console.log("about to call");
+			axios.get('https://min-api.cryptocompare.com/data/pricemulti', {
+				params: {
+					fsyms: "BTC,ETH,XRP,XLM",
+					tsyms: "USD"
+				}
+			}).then(function (response) {
+				return [_this.btc = (response.data.BTC.USD * 65).toFixed(2), _this.eth = (response.data.ETH.USD * 65).toFixed(2), _this.xrp = (response.data.XRP.USD * 65).toFixed(2), _this.xlm = (response.data.XLM.USD * 65).toFixed(2)];
+			}).catch(function (error) {
+				console.log(error);
+			});
+		}
+	},
+
+	mounted: function mounted() {
+		this.getValues();
+
+		this.interval = setInterval(function () {
+			this.getValues();
+		}.bind(this), 30000);
+
+		//this.getINR();
+		console.log(this.data);
+	}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/Stats.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1772,6 +2193,65 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 		//this.getINR();
 		console.log('Component mounted.');
+	}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/Wallet.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+	props: ["data", "name", "showcreate", "code", "labels", "coin_id"],
+	data: function data() {
+		return {
+			quantity: 12
+		};
+	},
+	computed: {
+		tagClass: function tagClass() {
+			return 'tag ' + this.labels + " is-large";
+		},
+		balance: function balance() {
+			if (this.data) return 0;else return "not created";
+		}
+	},
+	mounted: function mounted() {
+		//		console.log(this.data);
+		//		console.log(this.data['id']);
 	}
 });
 
@@ -30971,12 +31451,353 @@ module.exports = function normalizeComponent (
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-123b0b53\"}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/Buy.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "notification"
+  }, [_c('form', {
+    attrs: {
+      "method": "POST",
+      "action": "/buy"
+    }
+  }, [_vm._t("csrf-field"), _vm._v(" "), _c('h4', {
+    staticClass: "has-text-left"
+  }, [_vm._v("Your  Account Balance : "), _vm._m(0), _vm._v(" " + _vm._s(_vm.balance))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.balance),
+      expression: "balance"
+    }],
+    attrs: {
+      "type": "hidden",
+      "name": "balance"
+    },
+    domProps: {
+      "value": _vm.balance,
+      "value": (_vm.balance)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.balance = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "field"
+  }, [_c('p', {
+    staticClass: "control"
+  }, [_c('label', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (!_vm.coinid),
+      expression: "!coinid"
+    }],
+    staticClass: "help is-danger"
+  }, [_vm._v("Please select the coin for buying")]), _vm._v(" "), _vm._l((_vm.data), function(wallet) {
+    return _c('label', {
+      staticClass: "radio"
+    }, [_c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: (_vm.coinid),
+        expression: "coinid"
+      }],
+      attrs: {
+        "type": "radio",
+        "name": "coin_id"
+      },
+      domProps: {
+        "value": wallet.coin.id,
+        "checked": _vm._q(_vm.coinid, wallet.coin.id)
+      },
+      on: {
+        "change": function($event) {
+          _vm.walletselected(wallet.id)
+        },
+        "__c": function($event) {
+          _vm.coinid = wallet.coin.id
+        }
+      }
+    }), _vm._v(" " + _vm._s(wallet.coin.name) + "\n\t  "), _c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: (_vm.walletid),
+        expression: "walletid"
+      }],
+      attrs: {
+        "type": "hidden",
+        "name": "wallet_id"
+      },
+      domProps: {
+        "value": wallet.id,
+        "value": (_vm.walletid)
+      },
+      on: {
+        "input": function($event) {
+          if ($event.target.composing) { return; }
+          _vm.walletid = $event.target.value
+        }
+      }
+    }), _vm._v(" "), (_vm.coinid == 1) ? _c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: (_vm.rate),
+        expression: "rate"
+      }],
+      attrs: {
+        "type": "hidden",
+        "name": "rate"
+      },
+      domProps: {
+        "value": _vm.btc,
+        "value": (_vm.rate)
+      },
+      on: {
+        "input": function($event) {
+          if ($event.target.composing) { return; }
+          _vm.rate = $event.target.value
+        }
+      }
+    }) : _vm._e(), _vm._v(" "), (_vm.coinid == 2) ? _c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: (_vm.rate),
+        expression: "rate"
+      }],
+      attrs: {
+        "type": "hidden",
+        "name": "rate"
+      },
+      domProps: {
+        "value": _vm.eth,
+        "value": (_vm.rate)
+      },
+      on: {
+        "input": function($event) {
+          if ($event.target.composing) { return; }
+          _vm.rate = $event.target.value
+        }
+      }
+    }) : _vm._e(), _vm._v(" "), (_vm.coinid == 3) ? _c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: (_vm.rate),
+        expression: "rate"
+      }],
+      attrs: {
+        "type": "hidden",
+        "name": "rate"
+      },
+      domProps: {
+        "value": _vm.xrp,
+        "value": (_vm.rate)
+      },
+      on: {
+        "input": function($event) {
+          if ($event.target.composing) { return; }
+          _vm.rate = $event.target.value
+        }
+      }
+    }) : _vm._e(), _vm._v(" "), (_vm.coinid == 4) ? _c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: (_vm.rate),
+        expression: "rate"
+      }],
+      attrs: {
+        "type": "hidden",
+        "name": "rate"
+      },
+      domProps: {
+        "value": _vm.xlm,
+        "value": (_vm.rate)
+      },
+      on: {
+        "input": function($event) {
+          if ($event.target.composing) { return; }
+          _vm.rate = $event.target.value
+        }
+      }
+    }) : _vm._e()])
+  })], 2)]), _vm._v(" "), _c('div', {
+    staticClass: "field has-addons"
+  }, [_vm._m(1), _vm._v(" "), _c('p', {
+    staticClass: "control"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.amount),
+      expression: "amount"
+    }],
+    staticClass: "input is-large",
+    attrs: {
+      "name": "amount",
+      "type": "text",
+      "placeholder": "Amount of money",
+      "required": ""
+    },
+    domProps: {
+      "value": (_vm.amount)
+    },
+    on: {
+      "keyup": _vm.quantitycalc,
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.amount = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.quantity),
+      expression: "quantity"
+    }],
+    attrs: {
+      "type": "hidden",
+      "name": "quantity"
+    },
+    domProps: {
+      "value": _vm.quantity,
+      "value": (_vm.quantity)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.quantity = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.commission),
+      expression: "commission"
+    }],
+    attrs: {
+      "type": "hidden",
+      "name": "commission"
+    },
+    domProps: {
+      "value": _vm.commission,
+      "value": (_vm.commission)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.commission = $event.target.value
+      }
+    }
+  })]), _vm._v(" "), _vm._m(2)]), _vm._v(" "), _c('div', {
+    staticClass: "field"
+  }, [_c('p', {
+    staticClass: "control"
+  }, [_c('label', {
+    staticClass: "is-large label"
+  }, [_vm._v("You are about to buy " + _vm._s(_vm.quantity) + " " + _vm._s(_vm.coinname) + " ")])])]), _vm._v(" "), _c('div', {
+    staticClass: "field"
+  }, [_c('p', {
+    staticClass: "control"
+  }, [_c('label', {
+    staticClass: "checkbox"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.termsandc),
+      expression: "termsandc"
+    }],
+    attrs: {
+      "type": "checkbox",
+      "name": "termsandc"
+    },
+    domProps: {
+      "checked": Array.isArray(_vm.termsandc) ? _vm._i(_vm.termsandc, null) > -1 : (_vm.termsandc)
+    },
+    on: {
+      "change": function($event) {
+        !_vm.termsandc
+      },
+      "__c": function($event) {
+        var $$a = _vm.termsandc,
+          $$el = $event.target,
+          $$c = $$el.checked ? (true) : (false);
+        if (Array.isArray($$a)) {
+          var $$v = null,
+            $$i = _vm._i($$a, $$v);
+          if ($$c) {
+            $$i < 0 && (_vm.termsandc = $$a.concat($$v))
+          } else {
+            $$i > -1 && (_vm.termsandc = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
+          }
+        } else {
+          _vm.termsandc = $$c
+        }
+      }
+    }
+  }), _vm._v("\n      I agree to the "), _c('a', {
+    attrs: {
+      "href": "#"
+    }
+  }, [_vm._v("terms and conditions")])])])])], 2)])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "icon"
+  }, [_c('i', {
+    staticClass: "fa fa-inr"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('p', {
+    staticClass: "control"
+  }, [_c('span', {
+    staticClass: "select is-large"
+  }, [_c('select', [_c('option', [_vm._v("₹")])])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('p', {
+    staticClass: "control"
+  }, [_c('button', {
+    staticClass: "button is-primary is-large"
+  }, [_vm._v("Buy")])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-123b0b53", module.exports)
+  }
+}
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-152ee9b7\"}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/Example.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('p', [_vm._v(_vm._s(_vm.name) + "  ")]), _c('h1', [_vm._m(0), _vm._v(" " + _vm._s(_vm.inr) + "    \n\t")]), _vm._v(" "), _c('p')])
+  return _c('div', [_c('p', [_vm._v(_vm._s(_vm.name) + " \n\t")]), (_vm.showmkt) ? _c('div', [_c('h3', [_c('small', [_vm._v("Market Price")]), _vm._v(" "), _vm._m(0), _vm._v(" " + _vm._s(_vm.mktinr))]), _vm._v(" "), _c('h3', [_c('small', [_vm._v("Our Price")]), _vm._v(" "), _vm._m(1), _vm._v(" " + _vm._s(_vm.ourinr))])]) : _vm._e(), _vm._v(" "), (!_vm.showmkt) ? _c('div', [_c('h1', [_vm._m(2), _vm._v(" " + _vm._s(_vm.ourinr))])]) : _vm._e(), _vm._v(" "), _c('p')])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "icon"
+  }, [_c('i', {
+    staticClass: "fa fa-inr"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "icon"
+  }, [_c('i', {
+    staticClass: "fa fa-inr"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('span', {
     staticClass: "icon is-medium"
   }, [_c('i', {
@@ -30993,7 +31814,34 @@ if (false) {
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-5e7fec84\"}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/Matrix.vue":
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-355fdf2e\"}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/Errors.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "notification is-danger"
+  }, [_c('button', {
+    staticClass: "delete",
+    on: {
+      "click": function($event) {
+        _vm.$emit('close')
+      }
+    }
+  }), _vm._v(" "), _c('ul', _vm._l((_vm.flaterrors), function(error) {
+    return _c('li', [_vm._v(_vm._s(error) + " ")])
+  }))])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-355fdf2e", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-61e323ac\"}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/Stats.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -31007,7 +31855,383 @@ module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-5e7fec84", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-61e323ac", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-65e3ccbc\"}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/Wallet.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "box"
+  }, [_c('nav', {
+    staticClass: "level"
+  }, [_c('div', {
+    staticClass: "level-item has-text-centered"
+  }, [_c('p', [_c('span', {
+    class: _vm.tagClass
+  }, [_vm._v(_vm._s(_vm.name))])])]), _vm._v(" "), _c('div', {
+    staticClass: "level-item has-text-centered"
+  }, [(!_vm.showcreate) ? _c('p', [_c('span', {
+    staticClass: "is-large"
+  }, [_c('h1', [_vm._v(_vm._s(_vm.data.quantity) + "  " + _vm._s(_vm.code))])])]) : _vm._e()]), _vm._v(" "), (!_vm.showcreate) ? _c('div', {
+    staticClass: "level-item has-text-centered"
+  }) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "level-item has-text-centered"
+  }, [(!_vm.showcreate) ? _c('p', [_c('strong', [_vm._v(" Wallet Id : ")]), _vm._v(_vm._s(_vm.data.id))]) : _vm._e()]), _vm._v(" "), (_vm.showcreate) ? _c('div', {
+    staticClass: "level-item has-text-centered"
+  }, [_c('form', {
+    attrs: {
+      "method": "POST",
+      "action": "/wallets"
+    }
+  }, [_vm._t("csrf-field"), _vm._v(" "), _c('input', {
+    attrs: {
+      "name": "coin_id",
+      "type": "hidden"
+    },
+    domProps: {
+      "value": _vm.coin_id
+    }
+  }), _vm._v(" "), _c('button', {
+    staticClass: "button is-primary"
+  }, [_vm._v("Create " + _vm._s(_vm.code) + " Wallet")])], 2)]) : _vm._e()])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-65e3ccbc", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-8c5ebb56\"}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/Sell.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "notification"
+  }, [_c('form', {
+    attrs: {
+      "method": "POST",
+      "action": "/sell"
+    }
+  }, [_vm._t("csrf-field"), _vm._v(" "), _c('h4', {
+    staticClass: "has-text-left"
+  }, [_vm._v("Your  Wallet Balance :  \n  "), _vm._l((_vm.data), function(wallet) {
+    return _c('label', {
+      staticClass: "tag"
+    }, [_c('span', {
+      staticClass: "tag"
+    }, [_vm._v(_vm._s(wallet.coin.name) + " ")]), _vm._v(" " + _vm._s(wallet.quantity) + "\n ")])
+  })], 2), _vm._v(" "), _c('div', {
+    staticClass: "field"
+  }, [_c('p', {
+    staticClass: "control"
+  }, [_c('label', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (!_vm.coinid),
+      expression: "!coinid"
+    }],
+    staticClass: "help is-danger"
+  }, [_vm._v("Please select the coin for selling")]), _vm._v(" "), _vm._l((_vm.data), function(wallet) {
+    return _c('label', {
+      staticClass: "radio"
+    }, [_c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: (_vm.coinid),
+        expression: "coinid"
+      }],
+      attrs: {
+        "type": "radio",
+        "name": "coin_id"
+      },
+      domProps: {
+        "value": wallet.coin.id,
+        "checked": _vm._q(_vm.coinid, wallet.coin.id)
+      },
+      on: {
+        "change": function($event) {
+          _vm.walletselected(wallet.id, wallet.quantity)
+        },
+        "__c": function($event) {
+          _vm.coinid = wallet.coin.id
+        }
+      }
+    }), _vm._v(" " + _vm._s(wallet.coin.name) + "\n\t  "), _c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: (_vm.walletid),
+        expression: "walletid"
+      }],
+      attrs: {
+        "type": "hidden",
+        "name": "wallet_id"
+      },
+      domProps: {
+        "value": wallet.id,
+        "value": (_vm.walletid)
+      },
+      on: {
+        "input": function($event) {
+          if ($event.target.composing) { return; }
+          _vm.walletid = $event.target.value
+        }
+      }
+    }), _vm._v(" "), _c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: (_vm.balance),
+        expression: "balance"
+      }],
+      attrs: {
+        "type": "hidden",
+        "name": "balance"
+      },
+      domProps: {
+        "value": _vm.balance,
+        "value": (_vm.balance)
+      },
+      on: {
+        "input": function($event) {
+          if ($event.target.composing) { return; }
+          _vm.balance = $event.target.value
+        }
+      }
+    }), _vm._v(" "), (_vm.coinid == 1) ? _c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: (_vm.rate),
+        expression: "rate"
+      }],
+      attrs: {
+        "type": "hidden",
+        "name": "rate"
+      },
+      domProps: {
+        "value": _vm.btc,
+        "value": (_vm.rate)
+      },
+      on: {
+        "input": function($event) {
+          if ($event.target.composing) { return; }
+          _vm.rate = $event.target.value
+        }
+      }
+    }) : _vm._e(), _vm._v(" "), (_vm.coinid == 2) ? _c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: (_vm.rate),
+        expression: "rate"
+      }],
+      attrs: {
+        "type": "hidden",
+        "name": "rate"
+      },
+      domProps: {
+        "value": _vm.eth,
+        "value": (_vm.rate)
+      },
+      on: {
+        "input": function($event) {
+          if ($event.target.composing) { return; }
+          _vm.rate = $event.target.value
+        }
+      }
+    }) : _vm._e(), _vm._v(" "), (_vm.coinid == 3) ? _c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: (_vm.rate),
+        expression: "rate"
+      }],
+      attrs: {
+        "type": "hidden",
+        "name": "rate"
+      },
+      domProps: {
+        "value": _vm.xrp,
+        "value": (_vm.rate)
+      },
+      on: {
+        "input": function($event) {
+          if ($event.target.composing) { return; }
+          _vm.rate = $event.target.value
+        }
+      }
+    }) : _vm._e(), _vm._v(" "), (_vm.coinid == 4) ? _c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: (_vm.rate),
+        expression: "rate"
+      }],
+      attrs: {
+        "type": "hidden",
+        "name": "rate"
+      },
+      domProps: {
+        "value": _vm.xlm,
+        "value": (_vm.rate)
+      },
+      on: {
+        "input": function($event) {
+          if ($event.target.composing) { return; }
+          _vm.rate = $event.target.value
+        }
+      }
+    }) : _vm._e()])
+  })], 2)]), _vm._v(" "), _c('div', {
+    staticClass: "field has-addons"
+  }, [_c('p', {
+    staticClass: "control"
+  }, [_c('span', {
+    staticClass: "select is-large"
+  }, [_c('select', [_c('option', [_vm._v(_vm._s(_vm.coincode))])])])]), _vm._v(" "), _c('p', {
+    staticClass: "control"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.quantity),
+      expression: "quantity"
+    }],
+    staticClass: "input is-large",
+    attrs: {
+      "name": "quantity",
+      "type": "text",
+      "placeholder": _vm.quantityof,
+      "required": ""
+    },
+    domProps: {
+      "value": (_vm.quantity)
+    },
+    on: {
+      "keyup": _vm.amountcalc,
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.quantity = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.amount),
+      expression: "amount"
+    }],
+    attrs: {
+      "type": "hidden",
+      "name": "amount"
+    },
+    domProps: {
+      "value": _vm.amount,
+      "value": (_vm.amount)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.amount = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.commission),
+      expression: "commission"
+    }],
+    attrs: {
+      "type": "hidden",
+      "name": "commission"
+    },
+    domProps: {
+      "value": _vm.commission,
+      "value": (_vm.commission)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.commission = $event.target.value
+      }
+    }
+  })]), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _c('div', {
+    staticClass: "field"
+  }, [_c('p', {
+    staticClass: "control"
+  }, [_c('label', {
+    staticClass: "is-large label"
+  }, [_vm._v("You are about to sell " + _vm._s(_vm.quantity) + " " + _vm._s(_vm.coincode) + " ")])])]), _vm._v(" "), _c('div', {
+    staticClass: "field"
+  }, [_c('p', {
+    staticClass: "control"
+  }, [_c('label', {
+    staticClass: "checkbox"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.termsandc),
+      expression: "termsandc"
+    }],
+    attrs: {
+      "type": "checkbox",
+      "name": "termsandc"
+    },
+    domProps: {
+      "checked": Array.isArray(_vm.termsandc) ? _vm._i(_vm.termsandc, null) > -1 : (_vm.termsandc)
+    },
+    on: {
+      "change": function($event) {
+        !_vm.termsandc
+      },
+      "__c": function($event) {
+        var $$a = _vm.termsandc,
+          $$el = $event.target,
+          $$c = $$el.checked ? (true) : (false);
+        if (Array.isArray($$a)) {
+          var $$v = null,
+            $$i = _vm._i($$a, $$v);
+          if ($$c) {
+            $$i < 0 && (_vm.termsandc = $$a.concat($$v))
+          } else {
+            $$i > -1 && (_vm.termsandc = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
+          }
+        } else {
+          _vm.termsandc = $$c
+        }
+      }
+    }
+  }), _vm._v("\n      I agree to the "), _c('a', {
+    attrs: {
+      "href": "#"
+    }
+  }, [_vm._v("terms and conditions")])])])])], 2)])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('p', {
+    staticClass: "control"
+  }, [_c('button', {
+    staticClass: "button is-primary is-large"
+  }, [_vm._v("Sell")])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-8c5ebb56", module.exports)
   }
 }
 
@@ -40797,13 +42021,25 @@ module.exports = function(module) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Example_vue__ = __webpack_require__("./resources/assets/js/components/Example.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Example_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_Example_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Graph_vue__ = __webpack_require__("./resources/assets/js/components/Graph.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Graph_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_Graph_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Matrix_vue__ = __webpack_require__("./resources/assets/js/components/Matrix.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Matrix_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_Matrix_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Errors_vue__ = __webpack_require__("./resources/assets/js/components/Errors.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Errors_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_Errors_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Example_vue__ = __webpack_require__("./resources/assets/js/components/Example.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Example_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_Example_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Graph_vue__ = __webpack_require__("./resources/assets/js/components/Graph.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Graph_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_Graph_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Stats_vue__ = __webpack_require__("./resources/assets/js/components/Stats.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Stats_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_Stats_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_Buy_vue__ = __webpack_require__("./resources/assets/js/components/Buy.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_Buy_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_Buy_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_Sell_vue__ = __webpack_require__("./resources/assets/js/components/Sell.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_Sell_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__components_Sell_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_Wallet_vue__ = __webpack_require__("./resources/assets/js/components/Wallet.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_Wallet_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__components_Wallet_vue__);
 __webpack_require__("./resources/assets/js/bootstrap.js");
+
+
+
+
 
 
 
@@ -40815,8 +42051,8 @@ var app = new Vue({
         showModal: false,
         dataObj: Object
     },
-    props: ['name', 'code', 'labels', 'sell', 'buy'],
-    components: { example: __WEBPACK_IMPORTED_MODULE_0__components_Example_vue___default.a, graph: __WEBPACK_IMPORTED_MODULE_1__components_Graph_vue___default.a, matrix: __WEBPACK_IMPORTED_MODULE_2__components_Matrix_vue___default.a }
+    props: ['errors', 'data', 'name', 'code', 'labels', 'sell', 'buy', 'balance', 'coin_id', 'showcreate', 'showmkt', 'margins'],
+    components: { errors: __WEBPACK_IMPORTED_MODULE_0__components_Errors_vue___default.a, example: __WEBPACK_IMPORTED_MODULE_1__components_Example_vue___default.a, graph: __WEBPACK_IMPORTED_MODULE_2__components_Graph_vue___default.a, stats: __WEBPACK_IMPORTED_MODULE_3__components_Stats_vue___default.a, buy: __WEBPACK_IMPORTED_MODULE_4__components_Buy_vue___default.a, wallet: __WEBPACK_IMPORTED_MODULE_6__components_Wallet_vue___default.a, sell: __WEBPACK_IMPORTED_MODULE_5__components_Sell_vue___default.a }
 });
 
 /***/ }),
@@ -40873,6 +42109,76 @@ window.axios.defaults.headers.common = {
 //     broadcaster: 'pusher',
 //     key: 'your-pusher-key'
 // });
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Buy.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")(
+  /* script */
+  __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/Buy.vue"),
+  /* template */
+  __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-123b0b53\"}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/Buy.vue"),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/amodkulkarni/Projects/iotnomics/resources/assets/js/components/Buy.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Buy.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-123b0b53", Component.options)
+  } else {
+    hotAPI.reload("data-v-123b0b53", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Errors.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")(
+  /* script */
+  __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/Errors.vue"),
+  /* template */
+  __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-355fdf2e\"}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/Errors.vue"),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/amodkulkarni/Projects/iotnomics/resources/assets/js/components/Errors.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Errors.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-355fdf2e", Component.options)
+  } else {
+    hotAPI.reload("data-v-355fdf2e", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
 
 /***/ }),
 
@@ -40946,22 +42252,22 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/Matrix.vue":
+/***/ "./resources/assets/js/components/Sell.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")(
   /* script */
-  __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/Matrix.vue"),
+  __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/Sell.vue"),
   /* template */
-  __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-5e7fec84\"}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/Matrix.vue"),
+  __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-8c5ebb56\"}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/Sell.vue"),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/amodkulkarni/Projects/iotnomics/resources/assets/js/components/Matrix.vue"
+Component.options.__file = "/Users/amodkulkarni/Projects/iotnomics/resources/assets/js/components/Sell.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] Matrix.vue: functional components are not supported with templates, they should use render functions.")}
+if (Component.options.functional) {console.error("[vue-loader] Sell.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (false) {(function () {
@@ -40970,9 +42276,79 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-5e7fec84", Component.options)
+    hotAPI.createRecord("data-v-8c5ebb56", Component.options)
   } else {
-    hotAPI.reload("data-v-5e7fec84", Component.options)
+    hotAPI.reload("data-v-8c5ebb56", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Stats.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")(
+  /* script */
+  __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/Stats.vue"),
+  /* template */
+  __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-61e323ac\"}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/Stats.vue"),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/amodkulkarni/Projects/iotnomics/resources/assets/js/components/Stats.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Stats.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-61e323ac", Component.options)
+  } else {
+    hotAPI.reload("data-v-61e323ac", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Wallet.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")(
+  /* script */
+  __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/Wallet.vue"),
+  /* template */
+  __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-65e3ccbc\"}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/Wallet.vue"),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/amodkulkarni/Projects/iotnomics/resources/assets/js/components/Wallet.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Wallet.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-65e3ccbc", Component.options)
+  } else {
+    hotAPI.reload("data-v-65e3ccbc", Component.options)
   }
 })()}
 

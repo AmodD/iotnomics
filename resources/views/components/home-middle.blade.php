@@ -3,22 +3,22 @@
 <div class="tile is-ancestor ">
   <div class="tile is-parent">
     <article class="tile is-child box">
-    <example name="BITCOIN" code="BTC"></example>
+    <example name="BITCOIN" code="BTC" showmkt="true"></example>
 	</article>
   </div>
   <div class="tile is-parent">
     <article class="tile is-child box">
-    <example name="ETHER" code="ETH"></example>
+    <example name="ETHER" code="ETH" showmkt="true"></example>
     </article>
   </div>
   <div class="tile is-parent">
     <article class="tile is-child box">
-    <example name="RIPPLE" code="XLR"></example>
+    <example name="RIPPLE" code="XRP" showmkt="true"></example>
     </article>
   </div>
   <div class="tile is-parent">
     <article class="tile is-child box">
-    <example name="LUMENS" code="XLM"></example>
+    <example name="LUMENS" code="XLM" showmkt="true"></example>
     </article>
   </div>
 </div>

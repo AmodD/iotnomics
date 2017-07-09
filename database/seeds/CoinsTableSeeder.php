@@ -16,7 +16,7 @@ class CoinsTableSeeder extends Seeder
 
 	[ 'name' => 'Bitcoin' , 'code' => 'BTC'],
 	[ 'name' => 'Ether' , 'code' => 'ETH'],
-	[ 'name' => 'Ripple' , 'code' => 'XLR'],
+	[ 'name' => 'Ripple' , 'code' => 'XRP'],
 	[ 'name' => 'Lumen' , 'code' => 'XLM']
 
 	]);

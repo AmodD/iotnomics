@@ -1,8 +1,12 @@
 require('./bootstrap');
 
+import errors from './components/Errors.vue' ;
 import example from './components/Example.vue' ;
 import graph from './components/Graph.vue' ;
-import matrix from './components/Matrix.vue' ;
+import stats from './components/Stats.vue' ;
+import buy from './components/Buy.vue' ;
+import sell from './components/Sell.vue' ;
+import wallet from './components/Wallet.vue' ;
 
 
 const app = new Vue({
@@ -11,8 +15,8 @@ const app = new Vue({
    		showModal : false,
 		dataObj : Object
     },
-    props: ['name','code','labels','sell','buy'],
-    components : { example , graph , matrix  }
+    props: ['errors','data','name','code','labels','sell','buy','balance','coin_id','showcreate' , 'showmkt','margins'],
+    components : { errors , example , graph , stats , buy , wallet , sell  }
 });
 
 

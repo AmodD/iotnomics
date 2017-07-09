@@ -6,18 +6,18 @@
     <div class="tile">
       <div class="tile is-parent is-vertical">
         <article class="tile is-child notification is-primary">
-          <p class="title">Vertical...</p>
-          <p class="subtitle">Top tile</p>
+          <p class="title">STEP 1</p>
+          <p class="subtitle">Create An Account</p>
         </article>
         <article class="tile is-child notification is-warning">
-          <p class="title">...tiles</p>
-          <p class="subtitle">Bottom tile</p>
+          <p class="title">STEP 2</p>
+          <p class="subtitle">Transfer Some funds into your account</p>
         </article>
       </div>
       <div class="tile is-parent">
         <article class="tile is-child notification is-info">
-          <p class="title">Middle tile</p>
-          <p class="subtitle">With an image</p>
+          <p class="title">Step 4</p>
+          <p class="subtitle">Start Trading by Buying and Selling Coins </p>
           <figure class="image is-4by3">
             <img src="http://bulma.io/images/placeholders/640x480.png">
           </figure>
@@ -26,8 +26,8 @@
     </div>
     <div class="tile is-parent">
       <article class="tile is-child notification is-danger">
-        <p class="title">Wide tile</p>
-        <p class="subtitle">Aligned with the right tile</p>
+        <p class="title">Step 3</p>
+        <p class="subtitle">Create Wallets for the coins you wish to trade </p>
         <div class="content">
           <!-- Content -->
         </div>
@@ -36,13 +36,11 @@
   </div>
   <div class="tile is-parent">
     <article class="tile is-child notification is-success">
-      <div class="content">
-        <p class="title">Tall tile</p>
-        <p class="subtitle">With even more content</p>
+        <p class="title">Terms and Conditions</p>
+        <p class="subtitle">We charge 2% on buy/sell amount</p>
         <div class="content">
           <!-- Content -->
         </div>
-      </div>
     </article>
   </div>
 </div>

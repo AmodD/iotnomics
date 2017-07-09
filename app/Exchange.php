@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Exchanges extends Model
+class Exchange extends Model
 {
 	//
 	public function spreads()

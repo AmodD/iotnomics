@@ -44,3 +44,22 @@ Route::get('/charts', function() {
 Route::get('/users', 'UsersController@index')->name('users');
 Route::patch('/users/{user}','UsersController@update');
 Route::delete('/users/{user}','UsersController@destroy');
+
+Route::get('/accounts', 'AccountsController@index')->name('account');
+Route::get('/accounts/{account}', 'AccountsController@show')->name('account');
+
+Route::post('/accounts', 'AccountsController@store')->name('account');
+
+Route::post('/deposit', 'DepositsController@store')->name('account');
+Route::post('/withdraw', 'WithdrawalsController@store')->name('account');
+
+Route::get('/wallets', 'WalletsController@index')->name('wallets');
+Route::post('/wallets', 'WalletsController@store')->name('wallets');
+
+Route::get('/buy', 'BuysController@index')->name('buy');
+Route::post('/buy', 'BuysController@store')->name('buy');
+
+Route::get('/sell', 'SellsController@index')->name('sell');
+Route::post('/sell', 'SellsController@store')->name('sell');
+
+Route::get('/commissions', 'CommissionsController@index')->name('commissions');
