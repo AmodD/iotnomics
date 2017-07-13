@@ -1680,15 +1680,37 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	props: ["balance", "data", "urate"],
 	data: function data() {
 		return {
-			btc: "",
-			eth: "",
-			xrp: "",
-			xlm: "",
+			btc: 0,
+			eth: 0,
+			xrp: 0,
+			xlm: 0,
 			walletid: "",
 			quantity: "",
 			amount: "",
@@ -1698,7 +1720,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			termsandc: false,
 			commission: 0,
 			uquantity: "",
-			ucommission: ""
+			ucommission: "",
+			compct: 1,
+			txnpct: 5,
+			cominr: 0,
+			txninr: 0
 
 		};
 	},
@@ -1721,17 +1747,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				console.log(error);
 			});
 		},
+		comchg: function comchg() {
+			this.rate = +this.btc + +this.btc * 0.01 * this.compct;
+			this.quantity = ((this.amount - this.commission) / this.rate).toFixed(8);
+			this.cominr = (this.amount * (this.btc * 0.01 * this.compct) / this.rate).toFixed(2);
+		},
+		txnchg: function txnchg() {
+			this.commission = this.amount * 0.01 * this.txnpct;
+			this.quantity = ((this.amount - this.commission) / this.rate).toFixed(8);
+			this.txninr = this.commission;
+		},
 		quantitycalc: function quantitycalc() {
 			if (this.coinid == 1) this.rate = this.btc;
 			if (this.coinid == 2) this.rate = this.eth;
 			if (this.coinid == 3) this.rate = this.xrp;
 			if (this.coinid == 4) this.rate = this.xlm;
 
-			this.commission = this.amount * 0.01 * 2;
+			this.commission = this.amount * 0.01 * this.txnpct;
 			this.quantity = ((this.amount - this.commission) / this.rate).toFixed(8);
 
 			this.ucommission = this.amount * 0.01 * 1;
 			this.uquantity = ((this.amount - this.ucommission) / this.urate).toFixed(8);
+
+			this.comchg();
+			this.txnchg();
 		},
 		walletselected: function walletselected(walletid) {
 			this.walletid = walletid;
@@ -1748,11 +1787,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				this.rate = this.xlm;this.coinname = "XLM";
 			}
 
-			this.commission = this.amount * 0.01 * 2;
+			this.commission = this.amount * 0.01 * this.txnpct;
 			this.quantity = ((this.amount - this.commission) / this.rate).toFixed(8);
 
 			this.ucommission = this.amount * 0.01 * 1;
 			this.uquantity = ((this.amount - this.ucommission) / this.urate).toFixed(8);
+
+			this.comchg();
+			this.txnchg();
 		},
 		getValues: function getValues() {
 			var _this = this;
@@ -1779,6 +1821,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		//				      }.bind(this), 30000); 
 
 		//this.getINR();
+
 		console.log(this.data);
 	}
 });
@@ -1866,9 +1909,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					tsyms: "USD"
 				}
 			}).then(function (response) {
-				return _this.ourinr = (response.data.USD * 65
-				//	       	+
-				//		(response.data.USD)*(this.margins.usdinr)*(0.01)*(this.margins.profit)
+				return _this.ourinr = (response.data.USD * 65 + response.data.USD * 65 * 0.01 * 1
 				//	+
 				//	(response.data.USD)*(this.margins.usdinr)*(0.01)*(this.margins.tax)
 				//     	+
@@ -31711,12 +31752,80 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   })]), _vm._v(" "), _vm._m(2)]), _vm._v(" "), _c('div', {
-    staticClass: "field"
+    staticClass: "field "
   }, [_c('p', {
     staticClass: "control"
   }, [_c('label', {
     staticClass: "is-large label"
-  }, [_vm._v("You are about to buy " + _vm._s(_vm.quantity) + " " + _vm._s(_vm.coinname) + " ")])]), _vm._v(" "), _c('p', {
+  }, [_vm._v("You are about to buy " + _vm._s(_vm.quantity) + " " + _vm._s(_vm.coinname) + " ")])])]), _vm._v(" "), _c('div', {
+    staticClass: "field has-addons"
+  }, [_c('p', {
+    staticClass: "control"
+  }, [(_vm.coinid == 1) ? _c('a', {
+    staticClass: "button is-static"
+  }, [_vm._v("Commission %")]) : _vm._e()]), _vm._v(" "), _c('p', {
+    staticClass: "control"
+  }, [(_vm.coinid == 1) ? _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.compct),
+      expression: "compct"
+    }],
+    staticClass: "input",
+    attrs: {
+      "name": "compct",
+      "type": "text"
+    },
+    domProps: {
+      "value": (_vm.compct)
+    },
+    on: {
+      "keyup": _vm.comchg,
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.compct = $event.target.value
+      }
+    }
+  }) : _vm._e()]), _vm._v(" "), _c('p', {
+    staticClass: "control"
+  }, [(_vm.coinid == 1) ? _c('a', {
+    staticClass: "button is-static"
+  }, [_vm._v("₹" + _vm._s(_vm.cominr))]) : _vm._e()]), _vm._v(" "), _c('p', {
+    staticClass: "control"
+  }, [(_vm.coinid == 1) ? _c('a', {
+    staticClass: "button is-static"
+  }, [_vm._v("Transaction Fee %")]) : _vm._e()]), _vm._v(" "), _c('p', {
+    staticClass: "control"
+  }, [(_vm.coinid == 1) ? _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.txnpct),
+      expression: "txnpct"
+    }],
+    staticClass: "input",
+    attrs: {
+      "name": "txnpct",
+      "type": "text"
+    },
+    domProps: {
+      "value": (_vm.txnpct)
+    },
+    on: {
+      "keyup": _vm.txnchg,
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.txnpct = $event.target.value
+      }
+    }
+  }) : _vm._e()]), _vm._v(" "), _c('p', {
+    staticClass: "control"
+  }, [(_vm.coinid == 1) ? _c('a', {
+    staticClass: "button is-static"
+  }, [_vm._v("₹" + _vm._s(_vm.txninr))]) : _vm._e()])]), _vm._v(" "), _c('div', {
+    staticClass: "field"
+  }, [_c('p', {
     staticClass: "control"
   }, [(_vm.coinid == 1) ? _c('label', {
     staticClass: "is-large label"

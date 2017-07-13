@@ -43,8 +43,8 @@
 				})
 				.then(response => this.ourinr = (
 				(response.data.USD)*(65)
-		//	       	+
-		//		(response.data.USD)*(this.margins.usdinr)*(0.01)*(this.margins.profit)
+			       	+
+				(response.data.USD)*(65)*(0.01)*1
 			       //	+
 			//	(response.data.USD)*(this.margins.usdinr)*(0.01)*(this.margins.tax)
 			  //     	+

@@ -41,10 +41,32 @@
   	</p>
 	</div>			
 
-<div class="field">
+<div class="field ">
   <p class="control">
   <label class="is-large label">You are about to buy {{ quantity }} {{ coinname }} </label>
   </p>
+</div>  
+<div class="field has-addons">
+  <p class="control">
+      <a v-if="coinid == 1"class="button is-static">Commission %</a>
+  </p>
+  <p class="control">
+  <input v-if="coinid == 1"class="input" name="compct" type="text"  v-model="compct" v-on:keyup="comchg" >
+  </p>
+  <p class="control">
+  <a v-if="coinid == 1"class="button is-static">₹{{ cominr }}</a>
+  </p>
+  <p class="control">
+      <a v-if="coinid == 1"class="button is-static">Transaction Fee %</a>
+  </p>
+  <p class="control">
+  <input v-if="coinid == 1"class="input" name="txnpct" type="text" v-model="txnpct" v-on:keyup="txnchg" >
+  </p>
+  <p class="control">
+  <a v-if="coinid == 1"class="button is-static">₹{{ txninr }}</a>
+  </p>
+  </div>
+<div class="field">
   <p class="control">
   <label v-if="coinid == 1" class="is-large label">Unocoin would have given only {{ uquantity }} BTC at rate of ₹{{ urate }} </label>
   </p>
@@ -73,10 +95,10 @@
 	props : ["balance","data","urate"],
 	    data : function() {
 		return {
-			btc : "",
-			eth : "",
-			xrp : "",
-			xlm : "",
+			btc : 0,
+			eth : 0,
+			xrp : 0,
+			xlm : 0,
 			walletid : "",
 			quantity : "",
 			amount : "",
@@ -86,7 +108,11 @@
 			termsandc : false,
 			commission : 0,
 			uquantity : "",
-			ucommission : "",	
+			ucommission : "",
+			compct : 1,
+			txnpct : 5,
+			cominr : 0 ,
+			txninr : 0
 
 		}
 	    },
@@ -108,18 +134,31 @@
 				.then(function (response) {console.log(response);})
 			.catch(function (error) {console.log(error);});
 	},
+	comchg(){
+			this.rate = +this.btc + +this.btc*0.01*this.compct ;	
+			this.quantity = ((this.amount - this.commission) / this.rate).toFixed(8);
+			this.cominr = ((this.amount)*(this.btc*0.01*this.compct)/this.rate).toFixed(2); 
+	},
+	txnchg(){
+			this.commission = this.amount*0.01*this.txnpct ;	
+			this.quantity = ((this.amount - this.commission) / this.rate).toFixed(8);
+			this.txninr = this.commission ;
+
+	},
 		quantitycalc(){
 			if(this.coinid == 1) this.rate = this.btc; 
 			if(this.coinid == 2) this.rate = this.eth; 
 			if(this.coinid == 3) this.rate = this.xrp; 
 			if(this.coinid == 4) this.rate = this.xlm;
 
-			this.commission = this.amount*0.01*2 ;	
+			this.commission = this.amount*0.01*this.txnpct ;	
 			this.quantity = ((this.amount - this.commission) / this.rate).toFixed(8);
 		
 			this.ucommission = this.amount*0.01*1;	
 			this.uquantity = ((this.amount - this.ucommission) / this.urate).toFixed(8); 
 
+			this.comchg();
+			this.txnchg();
 
 		},
 		walletselected(walletid){
@@ -129,11 +168,14 @@
 			if(this.coinid == 3) { this.rate = this.xrp; this.coinname = "XRP" ; }
 			if(this.coinid == 4) { this.rate = this.xlm; this.coinname = "XLM" ; }
 			
-			this.commission = this.amount*0.01*2 ;	
+			this.commission = this.amount*0.01*this.txnpct ;	
 			this.quantity = ((this.amount - this.commission) / this.rate).toFixed(8);
 			
 			this.ucommission = this.amount*0.01*1;	
 			this.uquantity = ((this.amount - this.ucommission) / this.urate).toFixed(8); 
+		
+			this.comchg();
+		        this.txnchg();
 		},
 		    getValues() {
 			    console.log("about to call");
@@ -163,6 +205,7 @@
 	//				      }.bind(this), 30000); 
 			    
 		//this.getINR();
+
             console.log(this.data);
         }
 
