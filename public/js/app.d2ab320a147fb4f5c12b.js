@@ -1677,9 +1677,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-	props: ["balance", "data"],
+	props: ["balance", "data", "urate"],
 	data: function data() {
 		return {
 			btc: "",
@@ -1693,7 +1696,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			coinid: 0,
 			coinname: "",
 			termsandc: false,
-			commission: 0
+			commission: 0,
+			uquantity: "",
+			ucommission: ""
 
 		};
 	},
@@ -1724,6 +1729,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 			this.commission = this.amount * 0.01 * 2;
 			this.quantity = ((this.amount - this.commission) / this.rate).toFixed(8);
+
+			this.ucommission = this.amount * 0.01 * 1;
+			this.uquantity = ((this.amount - this.ucommission) / this.urate).toFixed(8);
 		},
 		walletselected: function walletselected(walletid) {
 			this.walletid = walletid;
@@ -1742,6 +1750,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 			this.commission = this.amount * 0.01 * 2;
 			this.quantity = ((this.amount - this.commission) / this.rate).toFixed(8);
+
+			this.ucommission = this.amount * 0.01 * 1;
+			this.uquantity = ((this.amount - this.ucommission) / this.urate).toFixed(8);
 		},
 		getValues: function getValues() {
 			var _this = this;
@@ -1763,9 +1774,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	mounted: function mounted() {
 		this.getValues();
 
-		this.interval = setInterval(function () {
-			this.getValues();
-		}.bind(this), 30000);
+		//this.interval = setInterval(function () {
+		//			          this.getValues();
+		//				      }.bind(this), 30000); 
 
 		//this.getINR();
 		console.log(this.data);
@@ -31705,7 +31716,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "control"
   }, [_c('label', {
     staticClass: "is-large label"
-  }, [_vm._v("You are about to buy " + _vm._s(_vm.quantity) + " " + _vm._s(_vm.coinname) + " ")])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("You are about to buy " + _vm._s(_vm.quantity) + " " + _vm._s(_vm.coinname) + " ")])]), _vm._v(" "), _c('p', {
+    staticClass: "control"
+  }, [(_vm.coinid == 1) ? _c('label', {
+    staticClass: "is-large label"
+  }, [_vm._v("Unocoin would have given only " + _vm._s(_vm.uquantity) + " BTC at rate of ₹" + _vm._s(_vm.urate) + " ")]) : _vm._e()])]), _vm._v(" "), _c('div', {
     staticClass: "field"
   }, [_c('p', {
     staticClass: "control"
@@ -42051,7 +42066,7 @@ var app = new Vue({
         showModal: false,
         dataObj: Object
     },
-    props: ['errors', 'data', 'name', 'code', 'labels', 'sell', 'buy', 'balance', 'coin_id', 'showcreate', 'showmkt', 'margins'],
+    props: ['errors', 'data', 'name', 'code', 'labels', 'sell', 'buy', 'balance', 'coin_id', 'showcreate', 'showmkt', 'margins', 'urate'],
     components: { errors: __WEBPACK_IMPORTED_MODULE_0__components_Errors_vue___default.a, example: __WEBPACK_IMPORTED_MODULE_1__components_Example_vue___default.a, graph: __WEBPACK_IMPORTED_MODULE_2__components_Graph_vue___default.a, stats: __WEBPACK_IMPORTED_MODULE_3__components_Stats_vue___default.a, buy: __WEBPACK_IMPORTED_MODULE_4__components_Buy_vue___default.a, wallet: __WEBPACK_IMPORTED_MODULE_6__components_Wallet_vue___default.a, sell: __WEBPACK_IMPORTED_MODULE_5__components_Sell_vue___default.a }
 });
 

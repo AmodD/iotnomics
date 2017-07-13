@@ -45,6 +45,9 @@
   <p class="control">
   <label class="is-large label">You are about to buy {{ quantity }} {{ coinname }} </label>
   </p>
+  <p class="control">
+  <label v-if="coinid == 1" class="is-large label">Unocoin would have given only {{ uquantity }} BTC at rate of ₹{{ urate }} </label>
+  </p>
 </div>
 
 <div class="field">
@@ -67,7 +70,7 @@
 
 <script>
     export default {
-	props : ["balance","data"],
+	props : ["balance","data","urate"],
 	    data : function() {
 		return {
 			btc : "",
@@ -81,7 +84,9 @@
 			coinid : 0,
 			coinname : "",
 			termsandc : false,
-			commission : 0 
+			commission : 0,
+			uquantity : "",
+			ucommission : "",	
 
 		}
 	    },
@@ -111,6 +116,10 @@
 
 			this.commission = this.amount*0.01*2 ;	
 			this.quantity = ((this.amount - this.commission) / this.rate).toFixed(8);
+		
+			this.ucommission = this.amount*0.01*1;	
+			this.uquantity = ((this.amount - this.ucommission) / this.urate).toFixed(8); 
+
 
 		},
 		walletselected(walletid){
@@ -122,6 +131,9 @@
 			
 			this.commission = this.amount*0.01*2 ;	
 			this.quantity = ((this.amount - this.commission) / this.rate).toFixed(8);
+			
+			this.ucommission = this.amount*0.01*1;	
+			this.uquantity = ((this.amount - this.ucommission) / this.urate).toFixed(8); 
 		},
 		    getValues() {
 			    console.log("about to call");
@@ -146,9 +158,9 @@
         mounted() {
 		        this.getValues();
 
-	this.interval = setInterval(function () {
-				          this.getValues();
-					      }.bind(this), 30000); 
+	//this.interval = setInterval(function () {
+	//			          this.getValues();
+	//				      }.bind(this), 30000); 
 			    
 		//this.getINR();
             console.log(this.data);

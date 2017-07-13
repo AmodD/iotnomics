@@ -15,7 +15,7 @@ const app = new Vue({
    		showModal : false,
 		dataObj : Object
     },
-    props: ['errors','data','name','code','labels','sell','buy','balance','coin_id','showcreate' , 'showmkt','margins'],
+    props: ['errors','data','name','code','labels','sell','buy','balance','coin_id','showcreate' , 'showmkt','margins','urate'],
     components : { errors , example , graph , stats , buy , wallet , sell  }
 });
 
