@@ -72,14 +72,7 @@
   </p>
 </div>
 
-<div class="field">
-  <p class="control">
-    <label class="checkbox">
-      <input type="checkbox" name="termsandc" v-model="termsandc"  v-on:change="!termsandc">
-      I agree to the <a href="#">terms and conditions</a>
-    </label>
-  </p>
-</div>
+
 
 
 
