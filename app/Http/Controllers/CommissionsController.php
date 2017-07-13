@@ -12,7 +12,7 @@ class CommissionsController extends Controller
    {
 	   $data = Commission::all();
 //	   $data = auth()->user()->account()->first();
-//	   dd($data->coins());
+//	   dd($data);
 	   return view('home',compact('data'));
    }
 

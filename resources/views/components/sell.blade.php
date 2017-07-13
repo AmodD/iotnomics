@@ -45,7 +45,7 @@
 				<th>Date</th>
 			</thead>
 			<tbody>
-				@foreach($data->sells as $sell)
+				@foreach($data->sells->sortByDesc('id') as $sell)
 				<tr>
 				<td>{{ $sell->id }} </td>
 				<td>{{ $sell->coin->name }} </td>

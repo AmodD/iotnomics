@@ -78,7 +78,7 @@
 				<th>Date</th>
 			</thead>
 			<tbody>
-				@foreach($data->deposits as $deposit)
+				@foreach($data->deposits->sortByDesc('id') as $deposit)
 				<tr>
 				<td>{{ $deposit->id }} </td>
 				<td>{{ $deposit->amount }} </td>
@@ -100,7 +100,7 @@
 				<th>Date</th>
 			</thead>
 			<tbody>
-				@foreach($data->withdrawals as $withdrawal)
+				@foreach($data->withdrawals->sortByDesc('id') as $withdrawal)
 				<tr>
 				<td>{{ $withdrawal->id }} </td>
 				<td>{{ $withdrawal->amount }} </td>

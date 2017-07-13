@@ -17,7 +17,7 @@
 				<th>Date</th>
 			</thead>
 			<tbody>
-				@foreach($data as $commission)
+				@foreach($data->sortByDesc('id') as $commission)
 				<tr>
 				<td>{{ $commission->id }} </td>
 				<td>{{ $commission->commissionable->wallet->account->user->name }} </td>
