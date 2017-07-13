@@ -105,7 +105,8 @@
 			compct : 1,
 			txnpct : 5,
 			cominr : 0 ,
-			txninr : 0
+			txninr : 0,
+			test : 12
 
 		}
 	    },
@@ -130,7 +131,8 @@
 	comchg(){
 			this.rate = (+this.btc + +this.btc*0.01*this.compct).toFixed(2) ;	
 			this.quantity = ((this.amount - this.commission) / this.rate).toFixed(8);
-			this.cominr = ((this.amount)*(this.rate*0.01*this.compct)/this.rate).toFixed(2); 
+			this.cominr = ((this.amount)*(this.rate*0.01*this.compct)/this.rate).toFixed(2);
+		       this.test = 14;	
 	},
 	txnchg(){
 			this.commission = this.amount*0.01*this.txnpct ;	
