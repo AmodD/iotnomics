@@ -43,7 +43,7 @@
 
 <div class="field ">
   <p class="control">
-  <label class="is-large label">You are about to buy {{ quantity }} {{ coinname }} at the rate of ₹{{ rate }} </label>
+   <label class="is-large label">You are about to buy {{ quantity }} {{ coinname }} at the rate of ₹{{ rate }} </label>
   </p>
 </div>  
 <div class="field has-addons">
