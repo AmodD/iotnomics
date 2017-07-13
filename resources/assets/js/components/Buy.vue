@@ -43,7 +43,7 @@
 
 <div class="field ">
   <p class="control">
-  <label class="is-large label">You are about to buy {{ quantity }} {{ coinname }} </label>
+  <label class="is-large label">You are about to buy {{ quantity }} {{ coinname }} at the rate of ₹{{ rate }} </label>
   </p>
 </div>  
 <div class="field has-addons">
@@ -135,9 +135,9 @@
 			.catch(function (error) {console.log(error);});
 	},
 	comchg(){
-			this.rate = +this.btc + +this.btc*0.01*this.compct ;	
+			this.rate = (+this.btc + +this.btc*0.01*this.compct).toFixed(2) ;	
 			this.quantity = ((this.amount - this.commission) / this.rate).toFixed(8);
-			this.cominr = ((this.amount)*(this.btc*0.01*this.compct)/this.rate).toFixed(2); 
+			this.cominr = ((this.amount)*(this.rate*0.01*this.compct)/this.rate).toFixed(2); 
 	},
 	txnchg(){
 			this.commission = this.amount*0.01*this.txnpct ;	

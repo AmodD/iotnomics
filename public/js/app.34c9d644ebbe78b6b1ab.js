@@ -1748,9 +1748,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			});
 		},
 		comchg: function comchg() {
-			this.rate = +this.btc + +this.btc * 0.01 * this.compct;
+			this.rate = (+this.btc + +this.btc * 0.01 * this.compct).toFixed(2);
 			this.quantity = ((this.amount - this.commission) / this.rate).toFixed(8);
-			this.cominr = (this.amount * (this.btc * 0.01 * this.compct) / this.rate).toFixed(2);
+			this.cominr = (this.amount * (this.rate * 0.01 * this.compct) / this.rate).toFixed(2);
 		},
 		txnchg: function txnchg() {
 			this.commission = this.amount * 0.01 * this.txnpct;
@@ -31757,7 +31757,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "control"
   }, [_c('label', {
     staticClass: "is-large label"
-  }, [_vm._v("You are about to buy " + _vm._s(_vm.quantity) + " " + _vm._s(_vm.coinname) + " ")])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("You are about to buy " + _vm._s(_vm.quantity) + " " + _vm._s(_vm.coinname) + " at the rate of ₹" + _vm._s(_vm.rate) + " ")])])]), _vm._v(" "), _c('div', {
     staticClass: "field has-addons"
   }, [_c('p', {
     staticClass: "control"
