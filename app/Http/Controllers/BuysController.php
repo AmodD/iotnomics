@@ -17,7 +17,7 @@ class BuysController extends Controller
 	   
 	   if(empty($data)) return redirect('/accounts');
 	   if($data->wallets()->get()->isEmpty()) return redirect('/wallets');
-//	   dd($data->coins());
+	   //dd($data->coins());
 	   return view('home',compact('data'));
    }
 

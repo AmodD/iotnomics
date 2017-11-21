@@ -27,8 +27,9 @@
 	@if($errors->any()) 
 		<errors :errors="{{$errors->toJson()}}"></errors>
 	@endif
+<!-- <buy :balance="{{ $data->value }}" :data="{{ json_encode($data->coins()) }}" :urate="{{ file_get_contents('https://www.unocoin.com/trade?buy') }}"> -->
 
-	<buy :balance="{{ $data->value }}" :data="{{ json_encode($data->coins()) }}" :urate="{{ file_get_contents('https://www.unocoin.com/trade?buy') }}">
+<buy :balance="{{ $data->value }}" :data="{{ json_encode($data->coins()) }}" >
 		<template slot="csrf-field">{{ csrf_field() }}</template>
 	</buy>
 
